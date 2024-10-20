@@ -1,8 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using NttTest.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<NttDbContext>(
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Database"),
+        opt => opt.MigrationsHistoryTable("Migrations", "migration")));
+
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (!app.Environment.IsDevelopment())
 {
