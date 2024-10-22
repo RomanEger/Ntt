@@ -32,9 +32,8 @@ public class ProductService : IProductService
 
     public async Task<Product?> GetProductAsync(int productId)
     {
-        var p = await _dbContext.Products.Include(x => x.Category).FirstOrDefaultAsync();
-        return await _dbContext.Products
-            .FirstOrDefaultAsync(x => x.Id == productId);
+        var product = await _dbContext.Products.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == productId);
+        return product;
     }
 
     public async Task AddOrUpdateAsync(Product product)

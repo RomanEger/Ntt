@@ -28,6 +28,11 @@ public class NttDbContext : DbContext
             Name = "Посуда"
         };
         modelBuilder.Entity<Category>().HasData(category);
+        modelBuilder.Entity<Category>().HasData(new Category
+        {
+            Id = 2,
+            Name = "Мебель"
+        });
         modelBuilder.Entity<Product>().HasData(new Product
         {
             Id = 1,

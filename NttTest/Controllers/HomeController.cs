@@ -37,14 +37,17 @@ public class HomeController : Controller
     {
         if (productId is not null)
         {
-            return View(((await _productService.GetProductAsync(productId.Value))?.ToProductViewModel(), new SelectList(await _categoryService.GetCategoryNamesAsync())));
+            var product = await _productService.GetProductAsync(productId.Value);
+            return View((product?.ToProductViewModel() ?? new ProductViewModel(),
+                new SelectList(await _categoryService.GetCategoryNamesAsync(), product?.Category?.Name)));
         }
         return View((new ProductViewModel(), new SelectList(await _categoryService.GetCategoryNamesAsync() )));
     }
 
     [HttpPost("{controller}/product")]
-    public async Task<IActionResult> AddOrUpdateProductPost([FromBody] ProductViewModel productViewModel)
+    public async Task<IActionResult> AddOrUpdateProductPost([FromForm] ProductViewModel productViewModel)
     {
+        productViewModel.Id = int.Parse(HttpContext.Request.Cookies["productId"]);
         var product = await _productService.GetProductAsync(productViewModel.Id);
         if (product is not null)
         {
