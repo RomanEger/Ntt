@@ -7,7 +7,7 @@ public class Product: EntityBase
     [MaxLength(150)]
     public string Title { get; set; }
     
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     private decimal _price;
     /// <exception cref="ArgumentException"></exception>
@@ -18,7 +18,7 @@ public class Product: EntityBase
         {
             if (value < 0)
             {
-                throw new ArgumentException("Price must be greater than 0.");
+                throw new ArgumentException("Цена должна быть больше 0.");
             }
             _price = value;
         }
@@ -28,5 +28,5 @@ public class Product: EntityBase
     public int Quantity { get; set; }
     
     public int CategoryId { get; set; }
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
 }

@@ -1,15 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using NttTest.Models;
+using NttTest.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddDbContext<NttDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("Database"),
         opt => opt.MigrationsHistoryTable("Migrations", "migration")));
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

@@ -1,0 +1,21 @@
+﻿@model List<string>
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <td>
+                Название
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in @Model)
+        {
+            <tr>
+                <td>
+                    @category
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

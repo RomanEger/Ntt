@@ -7,5 +7,5 @@ public class Category : EntityBase
     [MaxLength(150)]
     public string Name { get; set; }
     
-    public ICollection<Product> Products { get; }
+    public ICollection<Product>? Products { get; set; }
 }

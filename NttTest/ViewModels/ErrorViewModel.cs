@@ -1,4 +1,4 @@
-namespace NttTest.Models;
+namespace NttTest.ViewModels;
 
 public class ErrorViewModel
 {
